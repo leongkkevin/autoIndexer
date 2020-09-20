@@ -21,7 +21,7 @@ TEST_CASE("Linked List Class", "[LinkedList]"){
     charList.push_back(' ');
 
     DSList<DSString> stringList;
-    stringList.push_back("testString");
+    stringList.push_back("test String");
     stringList.push_back("test");
     stringList.push_back(" ");
 
@@ -51,7 +51,7 @@ TEST_CASE("Linked List Class", "[LinkedList]"){
         REQUIRE(charList.getSize() == 4);
 
         stringList.push_back("a test sentence");
-        REQUIRE(stringList.getAt(0) == "testString");
+        REQUIRE(stringList.getAt(0) == "test String");
         REQUIRE(stringList.getAt(3) == "a test sentence");
         REQUIRE(stringList.getSize() == 4);
     }
@@ -65,7 +65,7 @@ TEST_CASE("Linked List Class", "[LinkedList]"){
         REQUIRE(charList.getSize() == 2);
         REQUIRE(charList.getAt(0) == '\n');
 
-        stringList.remove("testString");
+        stringList.remove("test String");
         REQUIRE(stringList.getSize() == 2);
         REQUIRE(stringList.getAt(0) == "test");
     }
@@ -93,9 +93,23 @@ TEST_CASE("Linked List Class", "[LinkedList]"){
         REQUIRE(charList.getSize() == 2);
         REQUIRE(charList.getAt(0) == '\n');
 
-        REQUIRE(stringList.pop() == "testString");
+        REQUIRE(stringList.pop() == "test String");
         REQUIRE(stringList.getSize() == 2);
         REQUIRE(stringList.getAt(0) == "test");
+    }
+
+    SECTION("Search"){
+        REQUIRE(intList.search(1) == 0);
+        REQUIRE(intList.search(10) == 1);
+        REQUIRE(intList.search(100) == 2);
+
+        REQUIRE(charList.search('a') == 0);
+        REQUIRE(charList.search('\n') == 1);
+        REQUIRE(charList.search(' ') == 2);
+
+        REQUIRE(stringList.search("test String") == 0);
+        REQUIRE(stringList.search("test") == 1);
+        REQUIRE(stringList.search(" ") == 2);
     }
 
 

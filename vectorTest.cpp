@@ -52,4 +52,44 @@ TEST_CASE("Vector Class", "[Vector]"){
         REQUIRE(stringVect.at(2) == "does it work?");
     }
 
+    SECTION("Begin and End"){
+        REQUIRE(intVect.begin() == 1);
+        REQUIRE(charVect.begin() == 'a');
+        REQUIRE(stringVect.begin() == "test");
+
+        REQUIRE(intVect.end() == 100);
+        REQUIRE(charVect.end() == '$');
+        REQUIRE(stringVect.end() == " ");
+    }
+
+    SECTION("Pop Back"){
+        intVect.pop_back();
+        REQUIRE(intVect.getSize() == 2);
+        REQUIRE(intVect.end() == 10);
+
+        charVect.pop_back();
+        REQUIRE(charVect.getSize() == 2);
+        REQUIRE(charVect.end() == '\n');
+
+        stringVect.pop_back();
+        REQUIRE(stringVect.getSize() == 2);
+        REQUIRE(stringVect.end() == "test String");
+    }
+
+    SECTION("Remove"){
+        intVect.remove(1);
+        REQUIRE(intVect.at(1) == 100);
+        intVect.remove(0);
+        REQUIRE(intVect.at(0) == 100);
+
+        charVect.remove(1);
+        REQUIRE(charVect.at(1) == '$');
+        charVect.remove(0);
+        REQUIRE(charVect.at(0) == '$');
+
+        stringVect.remove(1);
+        REQUIRE(stringVect.at(1) == " ");
+        stringVect.remove(0);
+        REQUIRE(stringVect.at(0) == " ");
+    }
 };

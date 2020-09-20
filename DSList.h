@@ -175,7 +175,11 @@ public:
     }
 
     int search(const Type &searchItem){
-        
+        for(int i = 0; i < this->size; ++i){
+            if(this->getAt(i) == searchItem){
+                return i;
+            }
+        }
     }
 
     //getSize

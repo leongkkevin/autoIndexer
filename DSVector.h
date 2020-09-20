@@ -35,6 +35,7 @@ public:
         delete[] arr;
     }
 
+    //resizes the vector
     void resize(int newSize){
         //Copy the data fromo the old this to the temp
         Type *temp = this->arr;
@@ -53,29 +54,46 @@ public:
         delete [] temp;
     }
 
+    //returns the first element of vector
+    Type begin(){
+        return this->arr[0];
+    }
+    //returns the last element of vector
+    Type end(){
+        return this->arr[size - 1];
+    }
+
+    //adds an element to the vector
     void push_back(const Type &newData){
-        Type *temp = this->arr;
-        this->arr = new Type[this->size + 1];
+        if(this->size == 0){
+            this->arr = new Type[1];
+            this->arr[0] = newData;
+        } else {
+            Type *temp = this->arr;
+            this->arr = new Type[this->size + 1];
 
-        temp[this->size] = newData;
+            temp[this->size] = newData;
 
-        for (int i = 0; i < this->size + 1; ++i){
-            this->arr[i] = temp[i];
+            for (int i = 0; i < this->size + 1; ++i) {
+                this->arr[i] = temp[i];
+            }
         }
 
         this->size++;
     }
 
-    void insert(int position, const Type &newData) {
+    //inserts data at position
+    void insert(int index, const Type &newData) {
 
-        if(position >= this->size){
+        if(index >= this->size){
             exit(1);
         }
 
-        this->arr[position] = newData;
+        this->arr[index] = newData;
 
     }
 
+    //removes the last element of vector
     void pop_back(){
         Type *temp = new Type[this->size - 1];
 
@@ -91,13 +109,31 @@ public:
 
     }
 
+    //returns size
     int getSize(){
         return this->size;
     }
 
+    //returns the element at that index
     Type at(int index){
         return this->arr[index];
     }
+
+    //removes the element at that index
+    void remove(int index){
+        Type *temp = this->arr;
+        this->arr = new Type[this->size - 1];
+
+        for(int i = 0; i < index; ++i){
+            this->arr[i] = temp[i];
+        }
+        for(int i = index; i < this->size - 1; ++i){
+            this->arr[i] = temp[i + 1];
+        }
+
+        this->size--;
+    }
+
 
 };
 
