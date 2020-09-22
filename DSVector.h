@@ -72,11 +72,10 @@ public:
             Type *temp = this->arr;
             this->arr = new Type[this->size + 1];
 
-            temp[this->size] = newData;
-
             for (int i = 0; i < this->size + 1; ++i) {
                 this->arr[i] = temp[i];
             }
+            this->arr[this->size] = newData;
         }
 
         this->size++;

@@ -85,7 +85,7 @@ DSString DSString::operator+(const DSString &addString) {
     copy.capacity = this->getCap();
 
     //resize if necessary
-    if(addString.size + copy.getLength() > copy.getCap()){
+    if(addString.size + copy.getLength() >= copy.getCap()){
         copy.resize(addString.size + copy.getLength());
     }
 
@@ -139,10 +139,10 @@ bool DSString::operator<(const DSString &compString) const{
     return strcmp(this->data, compString.data) < 0;
 }
 
-//char &DSString::operator[](const int location) {
-//
-//    return this->getData()[location];
-//}
+char &DSString::operator[](const int location) {
+
+    return this->getData()[location];
+}
 
 
 //Assorted Functions
