@@ -32,7 +32,7 @@ public:
     }
 
     ~DSVector(){
-        delete[] arr;
+        delete[] this->arr;
     }
 
     //resizes the vector
@@ -55,24 +55,28 @@ public:
     }
 
     //returns the first element of vector
-    Type begin(){
+    Type& begin(){
         return this->arr[0];
     }
     //returns the last element of vector
-    Type end(){
+    Type& end(){
         return this->arr[size - 1];
     }
 
     //adds an element to the vector
     void push_back(const Type &newData){
         if(this->size == 0){
-            this->arr = new Type[1];
             this->arr[0] = newData;
         } else {
-            Type *temp = this->arr;
+            Type *temp = new Type[this->size];
+            for(int i = 0; i < this->size; ++i){
+                temp[i] = this->arr[i];
+            }
+
+            delete[] this->arr;
             this->arr = new Type[this->size + 1];
 
-            for (int i = 0; i < this->size + 1; ++i) {
+            for (int i = 0; i < this->size; ++i) {
                 this->arr[i] = temp[i];
             }
             this->arr[this->size] = newData;
@@ -99,6 +103,10 @@ public:
         for(int i = 0; i < this->size - 1; ++i){
             temp[i] = this->arr[i];
         }
+
+
+        delete [] arr;
+        arr = new Type[size - 1];
 
         for(int i = 0; i < this->size - 1; ++i){
             this->arr[i] = temp[i];

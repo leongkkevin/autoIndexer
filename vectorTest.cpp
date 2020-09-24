@@ -10,6 +10,8 @@ using namespace std;
 #include "DSVector.h"
 #include "DSString.h"
 
+#include <string>
+
 TEST_CASE("Vector Class", "[Vector]"){
 
     DSVector<int> intVect;
@@ -23,20 +25,26 @@ TEST_CASE("Vector Class", "[Vector]"){
     charVect.push_back('$');
 
     DSVector<DSString> stringVect;
+    DSString testString("test");
+    DSString testString2("test String");
+    DSString testString3(" ");
+    stringVect.push_back(testString);
+    stringVect.push_back(testString2);
+    stringVect.push_back(testString3);
     stringVect.push_back("test");
     stringVect.push_back("test String");
     stringVect.push_back(" ");
 
     SECTION("Copy Constructor"){
-        DSVector<int> copyIntVect = DSVector<int>(intVect);
+        DSVector<int> copyIntVect(intVect);
         REQUIRE(copyIntVect.getSize() == intVect.getSize());
         REQUIRE(copyIntVect.at(0) == intVect.at(0));
 
-        DSVector<char> copyCharVect = DSVector<char>(charVect);
+        DSVector<char> copyCharVect(charVect);
         REQUIRE(copyCharVect.getSize() == charVect.getSize());
         REQUIRE(copyCharVect.at(0) == charVect.at(0));
 
-        DSVector<DSString> copyStringVector = DSVector<DSString>(stringVect);
+        DSVector<DSString> copyStringVector (stringVect);
         REQUIRE(copyStringVector.getSize() == stringVect.getSize());
         REQUIRE(copyStringVector.at(0) == stringVect.at(0));
     }
@@ -72,7 +80,7 @@ TEST_CASE("Vector Class", "[Vector]"){
         REQUIRE(charVect.end() == '\n');
 
         stringVect.pop_back();
-        REQUIRE(stringVect.getSize() == 2);
+        REQUIRE(stringVect.getSize() == 5);
         REQUIRE(stringVect.end() == "test String");
     }
 

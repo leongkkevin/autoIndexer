@@ -9,7 +9,7 @@
 
 using namespace std;
 
-#define TEST false
+#define TEST true
 int runCatchTest(int argc, char* const argv[]){
     return Catch::Session().run(argc, argv);
 }

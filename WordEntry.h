@@ -44,6 +44,16 @@ public:
     set<DSString> getPages(){
         return this->pages;
     }
+
+    void print(){
+        cout << this->word << ": ";
+        //set<DSString>::iterator itr;
+
+        for (auto it=this->pages.begin(); it != this->pages.end(); ++it){
+            cout << ' ' << *it;
+            cout << endl;
+        }
+    }
 };
 
 

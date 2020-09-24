@@ -79,6 +79,7 @@ void organizeData(ifstream &inFile,
             DSString newWord(entryArr);
             WordEntry word(newWord);
             word.addPage(pageNumStr);
+            word.print();
             testVect.push_back(word);
         }
     }

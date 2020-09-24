@@ -16,9 +16,10 @@ DSString::DSString(const char *newData) {
     this->size = createLength(newData);
     this->capacity = this->size + 1;
     this->data = new char[this->capacity];
-    for(int i = 0; i < this->capacity; i++){
-        this->data[i] = newData[i];
-    }
+//    for(int i = 0; i < this->capacity; i++){
+//        this->data[i] = newData[i];
+//    }
+    strcpy(this->data, newData);
     data[capacity - 1] = '\0';
 }
 
@@ -64,17 +65,16 @@ DSString &DSString::operator=(const DSString &sourceString) {
     //set capacity
     this->capacity = this->size + 1;
 
-    //resize if necessary
-    if(sourceString.size > capacity){
-        resize(sourceString.size);
-    }
-
+//    //resize if necessary
+//    if(sourceString.size > capacity){
+//        resize(sourceString.size);
+//    }
     //recreate data
-    this-> data = new char[sourceString.capacity];
+    this->data = new char[capacity];
 
     //copy data into this data
     strcpy(this->data, sourceString.data);
-    this->data[capacity - 1] = '\0';
+    //this->data[capacity - 1] = '\0';
 
     return *this;
 }
