@@ -40,7 +40,7 @@ public:
 
     int getLength() const;
     int getCap();
-    char* getData();
+    char * getData() const;
 
     void append(char addData);
     DSString substring(int start, int numChars);

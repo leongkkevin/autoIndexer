@@ -20,7 +20,7 @@ public:
     //Constructors
     DSVector(){
         this->size = 0;
-        this->arr = new Type[size];
+        this->arr = new Type[this->size];
     }
 
     DSVector(const DSVector &copyVector){
@@ -66,6 +66,7 @@ public:
     //adds an element to the vector
     void push_back(const Type &newData){
         if(this->size == 0){
+            this->arr = new Type[1];
             this->arr[0] = newData;
         } else {
             Type *temp = new Type[this->size];
@@ -73,7 +74,7 @@ public:
                 temp[i] = this->arr[i];
             }
 
-            delete[] this->arr;
+            //delete[] this->arr;
             this->arr = new Type[this->size + 1];
 
             for (int i = 0; i < this->size; ++i) {
@@ -122,7 +123,7 @@ public:
     }
 
     //returns the element at that index
-    Type at(int index){
+    Type& at(int index){
         return this->arr[index];
     }
 

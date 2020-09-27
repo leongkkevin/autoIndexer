@@ -25,12 +25,6 @@ TEST_CASE("Vector Class", "[Vector]"){
     charVect.push_back('$');
 
     DSVector<DSString> stringVect;
-    DSString testString("test");
-    DSString testString2("test String");
-    DSString testString3(" ");
-    stringVect.push_back(testString);
-    stringVect.push_back(testString2);
-    stringVect.push_back(testString3);
     stringVect.push_back("test");
     stringVect.push_back("test String");
     stringVect.push_back(" ");
@@ -80,7 +74,7 @@ TEST_CASE("Vector Class", "[Vector]"){
         REQUIRE(charVect.end() == '\n');
 
         stringVect.pop_back();
-        REQUIRE(stringVect.getSize() == 5);
+        REQUIRE(stringVect.getSize() == 2);
         REQUIRE(stringVect.end() == "test String");
     }
 

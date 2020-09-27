@@ -15,7 +15,7 @@ class WordEntry {
 private:
     DSString word;
     set<DSString> pages;
-    DSVector<WordEntry> children;
+//    DSVector<WordEntry> children;
 
 public:
 
@@ -25,26 +25,36 @@ public:
     WordEntry(const WordEntry &copy){
         this->word = copy.word;
         this->pages = copy.pages;
+//        this->children = copy.children;
     }
-    WordEntry(DSString newWord){
+    WordEntry(const DSString &newWord){
         this->word = newWord;
     }
 
     void addChild(WordEntry childWord){
-        this->children.push_back(childWord);
+//        this->children.push_back(childWord);
     }
-    void addPage(DSString pageNumber){
-        pages.insert(pageNumber);
+    void addPage(const DSString &pageNumber) {
+        this->pages.insert(pageNumber);
     }
 
-    DSString getWord(){
+    DSString getWord() const {
         return this->word;
     }
 
-    set<DSString> getPages(){
+    set<DSString> getPages() const {
         return this->pages;
     }
 
+    void printPages() const {
+        for (auto it=this->pages.begin(); it != this->pages.end(); ++it){
+            if(next(it) == this->pages.end()){
+                cout << *it;
+            } else {
+                cout << *it << ", ";
+            }
+        }
+    }
     void print(){
         cout << this->word << ": ";
         //set<DSString>::iterator itr;
@@ -53,6 +63,23 @@ public:
             cout << ' ' << *it;
             cout << endl;
         }
+    }
+
+    bool operator>(WordEntry &compEntry) const{
+        return strcmp(this->word.getData(), compEntry.getWord().getData()) > 0;
+    }
+
+    bool operator<(const WordEntry &compEntry) const{
+        return strcmp(this->word.getData(), compEntry.getWord().getData()) < 0;
+    }
+
+    bool operator==(const WordEntry &compEntry) const{
+        bool returnBool = false;
+        if(this->word  == compEntry.word){
+            returnBool = true;
+        }
+
+        return returnBool;
     }
 };
 

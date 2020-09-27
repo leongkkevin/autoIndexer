@@ -13,7 +13,7 @@ DSString::DSString() {
 }
 
 DSString::DSString(const char *newData) {
-    this->size = createLength(newData);
+    this->size = strlen(newData);
     this->capacity = this->size + 1;
     this->data = new char[this->capacity];
 //    for(int i = 0; i < this->capacity; i++){
@@ -136,7 +136,13 @@ bool DSString::operator>(const DSString &compString) const{
 }
 
 bool DSString::operator<(const DSString &compString) const{
-    return strcmp(this->data, compString.data) < 0;
+    if(isdigit(compString.getData()[0])){
+        int thisNum = atoi(this->data);
+        int compNum = atoi(compString.getData());
+        return thisNum < compNum;
+    }else {
+        return strcmp(this->data, compString.data) < 0;
+    }
 }
 
 char &DSString::operator[](const int location) {
@@ -185,7 +191,7 @@ int DSString::getCap() {
     return this->capacity;
 }
 
-char *DSString::getData() {
+char * DSString::getData() const {
     return this->data;
 }
 

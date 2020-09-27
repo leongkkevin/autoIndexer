@@ -166,20 +166,22 @@ public:
     }
 
     //access method
-    Type getAt(int index){
-        DSNode<Type>* temp = head;
+    Type& getAt(int index) const{
+        DSNode<Type>* temp = this->head;
         for(int i = 0; i < index; ++i){
             temp = temp->next;
         }
         return temp->payload;
     }
 
-    int search(const Type &searchItem){
+    int search(const Type &searchItem) const{
         for(int i = 0; i < this->size; ++i){
             if(this->getAt(i) == searchItem){
                 return i;
             }
         }
+
+        return -1;
     }
 
     //getSize
