@@ -15,38 +15,36 @@
 #ifndef INC_20F_AUTO_IDX_AUTOINDEXER_H
 #define INC_20F_AUTO_IDX_AUTOINDEXER_H
 
-int getOnlyNum(DSString specCharWord){
-    int returnNum;
-    char pageNum[4];
-
-    int j = 0;
-    for(int i = 0; i < specCharWord.getLength(); i++){
-        if(isdigit(specCharWord.getData()[i])){
-            pageNum[j] = specCharWord.getData()[i];
-            j++;
-        } else {
-            if(specCharWord.getData()[i] == '-'){
-                return -1;
-            }
-        }
+void charArrLower(char *charArr){
+    for(int i = 0; i < 40; ++i){
+        charArr[i] = tolower(charArr[i]);
     }
-
-    returnNum = atoi(pageNum);
-    return returnNum;
 }
 
-void seperateWords(DSVector<DSString> &pageWords ,DSString pageWordString){
-    stringstream ss;
-    ss << pageWordString;
-
-    char wordArray[30];
-    while(ss.getline(wordArray, 30, ' ')){
-        DSString wordString(wordArray);
-        pageWords.push_back(wordString);
+void removeFirstChar(char *charArr){
+    for (int i = 0; i < 39; ++i) {
+        charArr[i] = charArr[i + 1];
     }
-
-
 }
+
+//void removeTrailPunc(char * charArr){
+//    char temp[40];
+//    for (int i = 39; i >= 0; --i) {
+//        if(!isalpha(charArr[i])){
+//            temp[i] = '0';
+//        } else {
+//            temp[i] = charArr[i];
+//        }
+//    }
+//
+//    for(int i = 0; i < 39; ++i){
+//        if(temp[i] == '0'){
+//            break;
+//        } else {
+//            charArr[i] = temp[i];
+//        }
+//    }
+//}
 
 void organizeData(ifstream &inFile,
                   DSList<WordEntry> &entryList){
@@ -68,28 +66,66 @@ void organizeData(ifstream &inFile,
         stringstream pageStream;
         pageStream << inputChar;
 
-        char pageNum[5];
-        pageStream.getline(pageNum, 5, '>');
+        WordEntry *lastEntry = nullptr;
+
+        char pageNum[10];
+        pageStream.getline(pageNum, 10, '>');
 
         if(strcmp(pageNum, "-1") != 0){
-
             DSString pageNumStr(pageNum);
-            char entryArr[20];
 
-            while(pageStream.getline(entryArr, 20, ' ')){
-                for(char & i : entryArr){
-                    i = tolower(i);
+            char entryArr[40];
+            while(pageStream.getline(entryArr, 40, ' ')){
+                DSString newWord;
+
+                //check parent
+                bool isParent = false;
+                if(entryArr[0] == '('){
+                    removeFirstChar(entryArr);
+
+                    charArrLower(entryArr);
+                    newWord = entryArr;
+                    newWord = newWord.substring(0, newWord.getLength() - 1);
+
+                    isParent = true;
+                } else
+
+                //For phrases
+                if(entryArr[0] == '[') {
+                    char restChar[40];
+                    pageStream.getline(restChar, 40, ']');
+
+                    removeFirstChar(entryArr);
+
+                    charArrLower(entryArr);
+                    charArrLower(restChar);
+
+                    DSString entryOne(entryArr);
+                    DSString entryTwo(restChar);
+                    newWord = entryOne + " ";
+                    newWord = newWord + entryTwo;
+                }else{
+                    charArrLower(entryArr);
+                    newWord = entryArr;
                 }
-                DSString newWord(entryArr);
+
                 if(newWord.getCap() == 1){
                     continue;
                 } else{
                     if(entryList.search(newWord) >= 0){
                         entryList.getAt(entryList.search(newWord)).addPage(pageNumStr);
+                        if(isParent){
+                            entryList.getAt(entryList.search(newWord)).addChild(*lastEntry);
+                        }
+                        lastEntry = &entryList.getAt(entryList.search(newWord));
                     } else {
                         WordEntry word(newWord);
                         word.addPage(pageNumStr);
                         entryList.push_back(word);
+                        if(isParent){
+                            entryList.getAt(entryList.search(newWord)).addChild(*lastEntry);
+                        }
+                        lastEntry = &entryList.getAt(entryList.getSize() - 1);
                     }
                 }
             }
@@ -105,6 +141,13 @@ void sortData(DSList<WordEntry> &testVect, set<WordEntry> &entrySet){
     }
 }
 
+void printIndex(set<WordEntry> &entrySet){
+    set<WordEntry>::iterator itr;
+    for(itr = entrySet.begin(); itr != entrySet.end(); ++itr){
+        cout << *itr << endl;
+    }
+}
+
 void runIndexer(ifstream &inFile){
 
     //map<int, DSVector<DSString>> pageAndwords;
@@ -115,18 +158,7 @@ void runIndexer(ifstream &inFile){
     set<WordEntry> entrySet;
     sortData(testList, entrySet);
 
-
-    for(int i = 0; i < testList.getSize(); ++i){
-        cout << testList.getAt(i).getWord() << ": ";
-        testList.getAt(i).printPages();
-        cout << endl;
-    }
-
-//    set<WordEntry>::iterator itr;
-//    for (itr=testVect.begin(); itr != testVect.end(); ++itr){
-//            cout << itr->getWord() << ": ";
-//            itr->printPages();
-//    }
+    printIndex(entrySet);
 
 }
 

@@ -45,6 +45,7 @@ public:
     void append(char addData);
     DSString substring(int start, int numChars);
     char* c_str();
+    void allAlpha(DSString nonAlpha);
 
 
 

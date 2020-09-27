@@ -9,7 +9,6 @@
 
 using namespace std;
 
-#define TEST false
 int runCatchTest(int argc, char* const argv[]){
     return Catch::Session().run(argc, argv);
 }
@@ -17,16 +16,12 @@ int runCatchTest(int argc, char* const argv[]){
 
 int main(int argc, char** argv) {
 
-    if(TEST){
+    if(argc == 1){
         return runCatchTest(argc, argv);
     }
 
     ifstream inFile(argv[1]);
     runIndexer(inFile);
-
-//    std::ofstream outputstream(argv[2]);
-//    outputstream << "Hello, World!" << std::endl;
-//    outputstream.close();
 
     return 0;
 }

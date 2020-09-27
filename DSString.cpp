@@ -16,9 +16,7 @@ DSString::DSString(const char *newData) {
     this->size = strlen(newData);
     this->capacity = this->size + 1;
     this->data = new char[this->capacity];
-//    for(int i = 0; i < this->capacity; i++){
-//        this->data[i] = newData[i];
-//    }
+
     strcpy(this->data, newData);
     data[capacity - 1] = '\0';
 }
@@ -226,5 +224,7 @@ DSString DSString::substring(int start, int numChars) {
 char *DSString::c_str() {
     return this->data;
 }
+
+
 
 

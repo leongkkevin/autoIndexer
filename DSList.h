@@ -31,6 +31,8 @@ public:
         this->payload = payload;
         next = previous = nullptr;
     }
+
+    ~DSNode(){}
 };
 
 
@@ -90,13 +92,11 @@ public:
 
     //insert and remove functons
     void push_back(Type data){
-        if(head == nullptr){
-            head = new DSNode<Type>(data);
-            tail = head;
-            size++;
-        }
-
-        else{
+        if(this->head == nullptr){
+            this->head = new DSNode<Type>(data);
+            this->tail = this->head;
+            this->size++;
+        } else{
             tail->next = new DSNode<Type>(data);
             tail->next->previous = tail;
             tail = tail->next;

@@ -13,7 +13,7 @@ template <typename Type>
 
 class DSVector {
 private:
-    int size;
+    int size = 0;
     Type* arr;
 
 public:
@@ -32,7 +32,9 @@ public:
     }
 
     ~DSVector(){
-        delete[] this->arr;
+        if(this->size >= 1){
+            delete[] this->arr;
+        }
     }
 
     //resizes the vector
@@ -64,7 +66,7 @@ public:
     }
 
     //adds an element to the vector
-    void push_back(const Type &newData){
+    void push_back(const Type newData){
         if(this->size == 0){
             this->arr = new Type[1];
             this->arr[0] = newData;
@@ -74,7 +76,7 @@ public:
                 temp[i] = this->arr[i];
             }
 
-            //delete[] this->arr;
+            delete[] this->arr;
             this->arr = new Type[this->size + 1];
 
             for (int i = 0; i < this->size; ++i) {
@@ -118,12 +120,12 @@ public:
     }
 
     //returns size
-    int getSize(){
+    int getSize() const {
         return this->size;
     }
 
     //returns the element at that index
-    Type& at(int index){
+    Type & at(int index) const {
         return this->arr[index];
     }
 
