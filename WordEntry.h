@@ -24,10 +24,7 @@ public:
     WordEntry(const WordEntry &copy){
         this->word = copy.word;
         this->pages = copy.pages;
-//        for(int  i = 0; i < this->children.getSize(); ++i){
-//            this->children.at(i)  = copy.children.at(i);
-//        }
-
+        this->children = copy.children;
     }
     WordEntry(const DSString &newWord){
         this->word = newWord;
