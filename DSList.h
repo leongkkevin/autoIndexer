@@ -32,7 +32,7 @@ public:
         next = previous = nullptr;
     }
 
-    ~DSNode(){}
+    ~DSNode()= default;
 };
 
 
@@ -67,7 +67,7 @@ public:
 
         DSNode<Type>* temp = copy.head;
         for(int i = 0; i < copy.size; i++){
-            //DSNode<Type>* newDSNode = new DSNode<Type>(temp);
+            //auto* newDSNode = new DSNode<Type>(temp);
             push_back(temp->payload);
             temp = temp->next;
         }

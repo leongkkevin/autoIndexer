@@ -20,7 +20,7 @@ public:
     //Constructors
     DSVector(){
         this->size = 0;
-        this->arr = new Type[this->size];
+        //this->arr = new Type[this->size];
     }
 
     DSVector(const DSVector &copyVector){
@@ -35,6 +35,16 @@ public:
         if(this->size >= 1){
             delete[] this->arr;
         }
+    }
+
+    DSVector<Type> &operator=(const DSVector<Type> &sourceVect){
+        this->size = sourceVect.size;
+        this->arr = new Type[this->size];
+        for(int i = 0; i < this->size; ++i){
+            this->arr[i] = sourceVect.at(i);
+        }
+
+        return *this;
     }
 
     //resizes the vector

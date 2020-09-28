@@ -27,25 +27,6 @@ void removeFirstChar(char *charArr){
     }
 }
 
-//void removeTrailPunc(char * charArr){
-//    char temp[40];
-//    for (int i = 39; i >= 0; --i) {
-//        if(!isalpha(charArr[i])){
-//            temp[i] = '0';
-//        } else {
-//            temp[i] = charArr[i];
-//        }
-//    }
-//
-//    for(int i = 0; i < 39; ++i){
-//        if(temp[i] == '0'){
-//            break;
-//        } else {
-//            charArr[i] = temp[i];
-//        }
-//    }
-//}
-
 void organizeData(ifstream &inFile,
                   DSList<WordEntry> &entryList){
 
@@ -135,13 +116,11 @@ void organizeData(ifstream &inFile,
 
 void sortData(DSList<WordEntry> &testVect, set<WordEntry> &entrySet){
     for(int i = 0; i < testVect.getSize(); ++i){
-        if(entrySet.count(testVect.getAt(i))){
-        }
         entrySet.insert(testVect.getAt(i));
     }
 }
 
-void printIndex(set<WordEntry> &entrySet){
+void printIndex(const set<WordEntry> &entrySet){
     set<WordEntry>::iterator itr;
     for(itr = entrySet.begin(); itr != entrySet.end(); ++itr){
         cout << *itr << endl;
@@ -150,7 +129,6 @@ void printIndex(set<WordEntry> &entrySet){
 
 void runIndexer(ifstream &inFile){
 
-    //map<int, DSVector<DSString>> pageAndwords;
     DSList<WordEntry> testList;
 
     organizeData(inFile, testList);

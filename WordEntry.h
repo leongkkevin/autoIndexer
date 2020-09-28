@@ -14,7 +14,7 @@ class WordEntry {
 private:
     DSString word;
     set<DSString> pages;
-    DSVector<WordEntry> children{};
+    DSVector<WordEntry> children;
 
 public:
 
@@ -24,18 +24,20 @@ public:
     WordEntry(const WordEntry &copy){
         this->word = copy.word;
         this->pages = copy.pages;
-        this->children = copy.children;
+//        for(int  i = 0; i < this->children.getSize(); ++i){
+//            this->children.at(i)  = copy.children.at(i);
+//        }
+
     }
     WordEntry(const DSString &newWord){
         this->word = newWord;
     }
 
-    void addChild(const WordEntry &childWord){
-        WordEntry copyEntry(childWord);
-        this->children.push_back(copyEntry);
+    void addChild(const WordEntry childWord){
+        this->children.push_back(childWord);
     }
 
-    void addPage(const DSString &pageNumber) {
+    void addPage(const DSString pageNumber) {
         this->pages.insert(pageNumber);
     }
 
@@ -51,7 +53,7 @@ public:
         return this->children;
     }
 
-    bool operator>(WordEntry &compEntry) const{
+    bool operator> (const WordEntry &compEntry) const{
         return strcmp(this->word.getData(), compEntry.getWord().getData()) > 0;
     }
 
