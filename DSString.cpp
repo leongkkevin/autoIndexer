@@ -225,6 +225,18 @@ char *DSString::c_str() {
     return this->data;
 }
 
+int DSString::hasAt(char checkChar) {
+    int index = -1;
+    for(int i = 0; i < this->getLength(); ++i){
+        if(this->getData()[i] == checkChar){
+            index = i;
+            break;
+        }
+    }
+
+    return index;
+}
+
 
 
 

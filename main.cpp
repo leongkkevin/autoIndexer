@@ -13,7 +13,6 @@ int runCatchTest(int argc, char* const argv[]){
     return Catch::Session().run(argc, argv);
 }
 
-
 int main(int argc, char** argv) {
 
     if(argc == 1){
@@ -23,5 +22,7 @@ int main(int argc, char** argv) {
     ifstream inFile(argv[1]);
     runIndexer(inFile);
 
-    return 0;
+
+
+        return 0;
 }

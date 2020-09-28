@@ -15,6 +15,7 @@
 #ifndef INC_20F_AUTO_IDX_AUTOINDEXER_H
 #define INC_20F_AUTO_IDX_AUTOINDEXER_H
 
+//function takes in a character array and
 void charArrLower(char *charArr){
     for(int i = 0; i < 40; ++i){
         charArr[i] = tolower(charArr[i]);
@@ -32,18 +33,29 @@ void organizeData(ifstream &inFile,
 
     DSString bigString;
     while(!inFile.eof()){
-        char inputChar[80];
+        char inputChar[100];
         inFile.getline(inputChar, 160, '\n');
-        DSString pageNumString(inputChar);
-        bigString = bigString + pageNumString;
+        DSString pageString(inputChar);
+
+        if(pageString.hasAt('(') >= 0){
+            DSString ifParentString;
+            ifParentString = pageString.substring(pageString.hasAt('('),
+                    pageString.getLength());
+
+            pageString = pageString.substring(0, pageString.hasAt('('))
+                    + " ";
+            pageString = pageString + ifParentString;
+        }
+
+        bigString = bigString + pageString;
         bigString = bigString + " ";
     }
 
     stringstream ss;
     ss << bigString;
 
-    char inputChar[80];
-    while(ss.getline(inputChar, 80, '<')){
+    char inputChar[200];
+    while(ss.getline(inputChar, 200, '<')){
         stringstream pageStream;
         pageStream << inputChar;
 
@@ -58,25 +70,21 @@ void organizeData(ifstream &inFile,
             char entryArr[40];
             while(pageStream.getline(entryArr, 40, ' ')){
                 DSString newWord;
-
-                //check parent
                 bool isParent = false;
-                if(entryArr[0] == '('){
-                    removeFirstChar(entryArr);
-
-                    charArrLower(entryArr);
-                    newWord = entryArr;
-                    newWord = newWord.substring(0, newWord.getLength() - 1);
-
-                    isParent = true;
-                } else
+                bool isPhrase = false;
 
                 //For phrases
-                if(entryArr[0] == '[') {
+                if(entryArr[0] =='[' || entryArr[1] == '[') {
+                    isPhrase = true;
                     char restChar[40];
-                    pageStream.getline(restChar, 40, ']');
-
-                    removeFirstChar(entryArr);
+                    if (entryArr[0] == '[') {
+                        pageStream.getline(restChar, 40, ']');
+                        removeFirstChar(entryArr);
+                    } else if (entryArr[1] == '[') {
+                        pageStream.getline(restChar, 40, ']');
+                        removeFirstChar(entryArr);
+                        entryArr[0] = '(';
+                    }
 
                     charArrLower(entryArr);
                     charArrLower(restChar);
@@ -85,12 +93,27 @@ void organizeData(ifstream &inFile,
                     DSString entryTwo(restChar);
                     newWord = entryOne + " ";
                     newWord = newWord + entryTwo;
-                }else{
+                }
+
+                //check parent
+                if(entryArr[0] == '('){
+                    if(!isPhrase){
+                        charArrLower(entryArr);
+                        newWord = entryArr;
+                        newWord = newWord.substring(1, newWord.getLength() - 2);
+                    } else {
+                        newWord = newWord.substring(1, newWord.getLength() - 2);
+                    }
+                    isParent = true;
+                }
+
+                //for standard words
+                if(!isParent && !isPhrase){
                     charArrLower(entryArr);
                     newWord = entryArr;
                 }
 
-                if(newWord.getCap() == 1){
+                if(newWord.getCap() <= 1){
                     continue;
                 } else{
                     if(entryList.search(newWord) >= 0){
@@ -123,7 +146,7 @@ void sortData(DSList<WordEntry> &testVect, set<WordEntry> &entrySet){
 void printIndex(const set<WordEntry> &entrySet){
     set<WordEntry>::iterator itr;
     for(itr = entrySet.begin(); itr != entrySet.end(); ++itr){
-        cout << *itr << endl;
+        cout << *itr;
     }
 }
 
