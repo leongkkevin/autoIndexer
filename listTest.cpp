@@ -3,11 +3,10 @@
 //
 
 #include "DSVector.h"
-
 #include "DSString.h"
+#include "DSList.h"
 
 #include "catch.hpp"
-#include "DSList.h"
 
 TEST_CASE("Linked List Class", "[LinkedList]"){
     DSList<int> intList;
@@ -111,6 +110,27 @@ TEST_CASE("Linked List Class", "[LinkedList]"){
         REQUIRE(stringList.search("test") == 1);
         REQUIRE(stringList.search(" ") == 2);
     }
+
+    SECTION("Equals Operator"){
+        DSList<int> newIntList = intList;
+        REQUIRE(newIntList.getSize() == intList.getSize());
+        REQUIRE(newIntList.getAt(0) == intList.getAt(0));
+        REQUIRE(newIntList.getAt(1) == intList.getAt(1));
+        REQUIRE(newIntList.getAt(2) == intList.getAt(2));
+
+        DSList<char> newCharList = charList;
+        REQUIRE(newCharList.getSize() == charList.getSize());
+        REQUIRE(newCharList.getAt(0) == charList.getAt(0));
+        REQUIRE(newCharList.getAt(1) == charList.getAt(1));
+        REQUIRE(newCharList.getAt(2) == charList.getAt(2));
+
+        DSList<DSString> newStringList = stringList;
+        REQUIRE(newStringList.getSize() == stringList.getSize());
+        REQUIRE(newStringList.getAt(0) == stringList.getAt(0));
+        REQUIRE(newStringList.getAt(1) == stringList.getAt(1));
+        REQUIRE(newStringList.getAt(2) == stringList.getAt(2));
+    }
+
 
 
 }

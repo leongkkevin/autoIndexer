@@ -1,5 +1,5 @@
 <15>
-algorithm [binary tree] analysis heap
+algorithm! [binary tree] analysis heap
 <1>
 [binary search tree] analysis
 complexity algorithm [2-3 tree]

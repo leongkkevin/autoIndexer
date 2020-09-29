@@ -1,4 +1,4 @@
-//For edit config (no tests): ../input01.txt
+//Kevin Leong 47970316
 
 #define CATCH_CONFIG_RUNNER
 #include "catch.hpp"

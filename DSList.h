@@ -8,13 +8,12 @@
 
 using namespace std;
 
-//#include "DSNode.h"
-
 #ifndef INC_20F_AUTO_IDX_DSLIST_H
 #define INC_20F_AUTO_IDX_DSLIST_H
 
 template <typename Type>
 
+//NODE CLASS
 class DSNode {
 private:
 
@@ -33,6 +32,20 @@ public:
     }
 
     ~DSNode()= default;
+
+    DSNode(const DSNode<Type> & copy){
+        this->payload = copy.payload;
+        this->next = copy.next;
+        this->previous = copy.previous;
+    }
+
+    DSNode &operator=(const DSNode<Type> & copy) {
+        this->payload = copy.payload;
+        this->next = copy.next;
+        this->previous = copy.previous;
+
+        return *this;
+    }
 };
 
 
@@ -67,7 +80,6 @@ public:
 
         DSNode<Type>* temp = copy.head;
         for(int i = 0; i < copy.size; i++){
-            //auto* newDSNode = new DSNode<Type>(temp);
             push_back(temp->payload);
             temp = temp->next;
         }
@@ -104,6 +116,7 @@ public:
         }
     }
 
+    //removes something by data type
     void remove(Type data){
         size--;
         DSNode<Type>* temp;
@@ -131,6 +144,7 @@ public:
         }
     }
 
+    //removes something at an index
     void removeAt(int index){
         DSNode<Type>* temp = head;
         if(index == 0){
@@ -157,6 +171,7 @@ public:
         size--;
     }
 
+    //removes the first and returns that value
     Type pop(){
         DSNode<Type>* temp = head;
         head = temp->next;
@@ -165,7 +180,7 @@ public:
         return temp->payload;
     }
 
-    //access method
+    //access methods
     Type& getAt(int index) const{
         DSNode<Type>* temp = this->head;
         for(int i = 0; i < index; ++i){
@@ -174,6 +189,7 @@ public:
         return temp->payload;
     }
 
+    //searches list for item
     int search(const Type &searchItem) const{
         for(int i = 0; i < this->size; ++i){
             if(this->getAt(i) == searchItem){
@@ -184,20 +200,9 @@ public:
         return -1;
     }
 
-    //getSize
+    //returns the size
     int getSize(){
         return size;
-    }
-
-    //printing functions
-    void printList() {
-        DSNode<Type>* temp = head;
-
-        while(temp != nullptr){
-            cout << temp->payload << "->";
-            temp = temp->next;
-        }
-        cout << endl;
     }
 
 };

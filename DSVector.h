@@ -20,7 +20,6 @@ public:
     //Constructors
     DSVector(){
         this->size = 0;
-        //this->arr = new Type[this->size];
     }
 
     DSVector(const DSVector &copyVector){
@@ -37,6 +36,7 @@ public:
         }
     }
 
+    //assignment operator
     DSVector<Type> &operator=(const DSVector<Type> &sourceVect){
         this->size = sourceVect.size;
         this->arr = new Type[this->size];
