@@ -94,4 +94,18 @@ TEST_CASE("Vector Class", "[Vector]"){
         stringVect.remove(0);
         REQUIRE(stringVect.at(0) == " ");
     }
+
+    SECTION("[] Operator"){
+        REQUIRE(intVect[0] == 1);
+        REQUIRE(intVect[1] == 10);
+        REQUIRE(intVect[2] == 100);
+
+        REQUIRE(charVect[0] == 'a');
+        REQUIRE(charVect[1] == '\n');
+        REQUIRE(charVect[2] == '$');
+
+        REQUIRE(stringVect[0] == "test");
+        REQUIRE(stringVect[1] == "test String");
+        REQUIRE(stringVect[2] == " ");
+    }
 };

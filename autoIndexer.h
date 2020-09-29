@@ -141,16 +141,28 @@ void sortData(DSList<WordEntry> &testVect, set<WordEntry> &entrySet){
     for(int i = 0; i < testVect.getSize(); ++i){
         entrySet.insert(testVect.getAt(i));
     }
+
+    entrySet.erase(entrySet.begin());
 }
 
-void printIndex(const set<WordEntry> &entrySet){
-    set<WordEntry>::iterator itr;
-    for(itr = entrySet.begin(); itr != entrySet.end(); ++itr){
-        cout << *itr;
+void printHeader(const WordEntry& word, char &currChar, ofstream &outFile){
+    if(word.getWord().getData()[0] != currChar){
+        currChar = word.getWord().getData()[0];
+        char upperChar = toupper(currChar);
+        outFile << "[" << upperChar << "]" << endl;
     }
 }
 
-void runIndexer(ifstream &inFile){
+void printIndex(const set<WordEntry> &entrySet, ofstream &outFile){
+    set<WordEntry>::iterator itr;
+    char currChar = '!';
+    for(itr = entrySet.begin(); itr != entrySet.end(); ++itr){
+        printHeader(*itr, currChar, outFile);
+        outFile << *itr;
+    }
+}
+
+void runIndexer(ifstream &inFile, ofstream &outFile){
 
     DSList<WordEntry> testList;
 
@@ -159,7 +171,7 @@ void runIndexer(ifstream &inFile){
     set<WordEntry> entrySet;
     sortData(testList, entrySet);
 
-    printIndex(entrySet);
+    printIndex(entrySet, outFile);
 
 }
 

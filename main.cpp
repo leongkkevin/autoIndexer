@@ -20,8 +20,9 @@ int main(int argc, char** argv) {
     }
 
     ifstream inFile(argv[1]);
-    runIndexer(inFile);
+    ofstream outFile(argv[2]);
 
+    runIndexer(inFile, outFile);
 
 
         return 0;

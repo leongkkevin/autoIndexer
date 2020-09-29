@@ -52,14 +52,25 @@ bool WordEntry::operator==(const WordEntry &compEntry) const{
 }
 
 ostream &operator<<(ostream &out, const WordEntry &outEntry) {
+    int counter = 0;
+
     out << outEntry.getWord() << ": ";
+
+    counter = outEntry.getWord().getLength() + 2;
 
     set<DSString>::iterator it;
     for (it = outEntry.getPages().begin(); it != outEntry.getPages().end(); ++it){
+
+        if(counter >= 45){
+            out << endl << "    ";
+            counter = 3;
+        }
+
         if(next(it) == outEntry.getPages().end()){
             out << *it;
         } else {
             out << *it << ", ";
+            counter += it->getLength() + 2;
         }
     }
 

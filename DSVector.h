@@ -139,6 +139,11 @@ public:
         return this->arr[index];
     }
 
+    //subscript operator
+    Type &operator[](int index){
+        return this->arr[index];
+    }
+
     //removes the element at that index
     void remove(int index){
         Type *temp = this->arr;
