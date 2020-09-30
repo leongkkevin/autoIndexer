@@ -25,9 +25,10 @@ endforeach()
 set(CMAKE_CXX_STANDARD 17)
 #set(CMAKE_CXX_FLAGS_DEBUG "-O3")
 add_executable(${EXE_NAME} main.cpp
-        DSList.h DSNode.h
+        DSList.h
         DSVector.h
         listTest.cpp
         vectorTest.cpp
         DSString.cpp DSString.h
-        autoIndexer.cpp autoIndexer.h WordEntry.cpp WordEntry.h)
+        autoIndexer.cpp autoIndexer.h
+        WordEntry.cpp WordEntry.h)
