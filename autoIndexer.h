@@ -186,7 +186,7 @@ void sortData(DSList<WordEntry> &testVect, set<WordEntry> &entrySet){
         entrySet.insert(testVect.getAt(i));
     }
 
-    entrySet.erase(entrySet.begin());
+    //entrySet.erase(entrySet.begin());
 }
 
 //checks for the first letter of each word
