@@ -47,6 +47,9 @@ DSString &DSString::operator=(const char *newData) {
     this->size = wordLength;
 
     //recreate data
+    if(this->capacity !=0){
+        delete[] this->data;
+    }
     this-> data = new char[this->capacity];
 
     //copy data into this data
@@ -63,11 +66,10 @@ DSString &DSString::operator=(const DSString &sourceString) {
     //set capacity
     this->capacity = this->size + 1;
 
-//    //resize if necessary
-//    if(sourceString.size > capacity){
-//        resize(sourceString.size);
-//    }
     //recreate data
+    if(this->capacity !=0){
+        delete[] this->data;
+    }
     this->data = new char[capacity];
 
     //copy data into this data
@@ -145,7 +147,7 @@ bool DSString::operator<(const DSString &compString) const{
 
 char &DSString::operator[](const int location) {
 
-    return this->getData()[location];
+    return this->data[location];
 }
 
 
@@ -160,7 +162,7 @@ void DSString::resize(int newLength){
 
 //    delete old data
     if(this->size != 0) {
-        delete this->data;
+        delete[] this->data;
     }
 
     //new data with new capacity;
@@ -215,6 +217,8 @@ DSString DSString::substring(int start, int numChars) {
         subChars[j] = this->getData()[i];
         j++;
     }
+
+    delete[] subChars;
 
     DSString sub(subChars);
 

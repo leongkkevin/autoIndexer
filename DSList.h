@@ -71,6 +71,7 @@ public:
             delete temp;
             temp = temp-> next;
         }
+
     }
 
     DSList(const DSList& copy){
@@ -92,7 +93,6 @@ public:
 
             DSNode<Type>* temp = copy.head;
             for(int i = 0; i < copy.size; i++){
-                //DSNode<Type>* newDSNode = new DSNode<Type>(temp->payload);
                 push_back(temp->payload);
                 temp = temp->next;
             }

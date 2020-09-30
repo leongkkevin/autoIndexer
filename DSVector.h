@@ -31,7 +31,7 @@ public:
     }
 
     ~DSVector(){
-        if(this->size >= 1){
+        if(this->size > 0){
             delete[] this->arr;
         }
     }
@@ -53,6 +53,9 @@ public:
         Type *temp = this->arr;
 
         //resize old array
+        if(this->size != 0) {
+            delete[] this->arr;
+        }
         this->arr = new Type[newSize];
 
         //replace the old data into the new
@@ -72,7 +75,7 @@ public:
     }
     //returns the last element of vector
     Type& end(){
-        return this->arr[size - 1];
+        return this->arr[this->size - 1];
     }
 
     //adds an element to the vector
@@ -93,8 +96,9 @@ public:
                 this->arr[i] = temp[i];
             }
             this->arr[this->size] = newData;
-        }
 
+            delete[] temp;
+        }
         this->size++;
     }
 
@@ -117,13 +121,17 @@ public:
             temp[i] = this->arr[i];
         }
 
+        if(this->size !=0){
+            delete [] this->arr;
+        }
 
-        delete [] arr;
-        arr = new Type[size - 1];
+        this->arr = new Type[this->size - 1];
 
         for(int i = 0; i < this->size - 1; ++i){
             this->arr[i] = temp[i];
         }
+
+        delete [] temp;
 
         this->size--;
 
@@ -141,7 +149,11 @@ public:
 
     //subscript operator
     Type &operator[](int index){
-        return this->arr[index];
+        if(index > this->size){
+            return this->arr[this->size - 1];
+        } else {
+            return this->arr[index];
+        }
     }
 
     //removes the element at that index
@@ -156,6 +168,7 @@ public:
             this->arr[i] = temp[i + 1];
         }
 
+        delete [] temp;
         this->size--;
     }
 
