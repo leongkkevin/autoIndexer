@@ -17,8 +17,10 @@ DSString::DSString(const char *newData) {
     this->capacity = this->size + 1;
     this->data = new char[this->capacity];
 
-    strcpy(this->data, newData);
-    data[capacity - 1] = '\0';
+    if(this->size != 0){
+        strcpy(this->data, newData);
+        data[capacity - 1] = '\0';
+    }
 }
 
 DSString::DSString(const DSString &copyString) {
