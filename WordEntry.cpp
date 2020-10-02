@@ -14,11 +14,11 @@ WordEntry:: WordEntry(const DSString &newWord){
     this->word = newWord;
 }
 
-void WordEntry::addChild(const WordEntry childWord){
+void WordEntry::addChild(const WordEntry& childWord){
     this->children.push_back(childWord);
 }
 
-void WordEntry::addPage(const DSString pageNumber) {
+void WordEntry::addPage(const DSString& pageNumber) {
     this->pages.insert(pageNumber);
 }
 

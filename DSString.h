@@ -46,10 +46,7 @@ public:
     DSString substring(int start, int numChars);
     char* c_str();
 
-    int hasAt(char checkChar);
-
-
-
+    int hasAt(char checkChar, int start);
 };
 
 

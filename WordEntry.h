@@ -23,9 +23,9 @@ public:
     WordEntry(const WordEntry &copy);
     WordEntry(const DSString &newWord);
 
-    void addChild(const WordEntry childWord);
+    void addChild(const WordEntry& childWord);
 
-    void addPage(const DSString pageNumber);
+    void addPage(const DSString& pageNumber);
 
     const DSString &getWord() const;
 

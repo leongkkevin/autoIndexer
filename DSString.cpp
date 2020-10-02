@@ -212,17 +212,18 @@ void DSString::append(char addData){
 DSString DSString::substring(int start, int numChars) {
 
     char *subChars = new char[numChars + 1];
-    subChars[numChars] = '\0';
 
     int j = 0;
-    for(int i = start; i < numChars + start; ++i){
-        subChars[j] = this->getData()[i];
+    for(int i = start; i < numChars; ++i){
+         subChars[j] = this->getData()[i];
         j++;
     }
 
-    delete[] subChars;
+    subChars[j] = '\0';
 
     DSString sub(subChars);
+
+    delete[] subChars;
 
     return sub;
 }
@@ -231,9 +232,9 @@ char *DSString::c_str() {
     return this->data;
 }
 
-int DSString::hasAt(char checkChar) {
+int DSString::hasAt(char checkChar, int start) {
     int index = -1;
-    for(int i = 0; i < this->getLength(); ++i){
+    for(int i = start; i < this->getLength(); ++i){
         if(this->getData()[i] == checkChar){
             index = i;
             break;

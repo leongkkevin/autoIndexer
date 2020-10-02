@@ -62,20 +62,27 @@ void organizeData(ifstream &inFile,
 
         //modifies the input for parent texts
         //specifically inserts a space between the child and parent words/phrases
-        if(pageString.hasAt('(') >= 0){
-            DSString ifParentString;
-            ifParentString = pageString.substring(pageString.hasAt('('),
-                    pageString.getLength());
+        if(pageString.hasAt('(', 0) >= 0){
+            int start = 1;
+            while(pageString.hasAt('(', start) >= 0) {
+                DSString ifParentString;
+                ifParentString = pageString.substring(pageString.hasAt('(', start),
+                                                      pageString.getLength());
 
-            pageString = pageString.substring(0, pageString.hasAt('('))
-                    + " ";
-            pageString = pageString + ifParentString;
+                pageString = pageString.substring(0, pageString.hasAt('(', start))
+                             + " ";
+                pageString = pageString + ifParentString;
+
+                start += pageString.hasAt('(', start);
+            }
         }
 
-        //creates a large string of a certain page's words and phrases
-        bigString = bigString + pageString;
-        bigString = bigString + " ";
+            //creates a large string of a certain page's words and phrases
+            bigString = bigString + pageString;
+            bigString = bigString + " ";
     }
+
+    cout << bigString << endl;
 
     stringstream ss;
     ss << bigString;
@@ -136,9 +143,9 @@ void organizeData(ifstream &inFile,
                     if(!isPhrase){
                         charArrLower(entryArr);
                         newWord = entryArr;
-                        newWord = newWord.substring(1, newWord.getLength() - 2);
+                        newWord = newWord.substring(1, newWord.getLength() - 1);
                     } else {
-                        newWord = newWord.substring(1, newWord.getLength() - 2);
+                        newWord = newWord.substring(1, newWord.getLength() - 1);
                     }
                     isParent = true;
                 }
@@ -185,8 +192,6 @@ void sortData(DSList<WordEntry> &testVect, set<WordEntry> &entrySet){
     for(int i = 0; i < testVect.getSize(); ++i){
         entrySet.insert(testVect.getAt(i));
     }
-
-    //entrySet.erase(entrySet.begin());
 }
 
 //checks for the first letter of each word
